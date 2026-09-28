@@ -1,5 +1,5 @@
 import java.util.Random;
-import java.util.Scanner; // Import Scanner class for user input
+import java.util.Scanner;
 
 // 1. CLASS
 class PasswordGenerator {
@@ -14,17 +14,16 @@ class PasswordGenerator {
 
     int passwordLength;
 
-    // 3. CONSTRUCTOR (Sets length passed from main)
+    // 3. CONSTRUCTOR
     public PasswordGenerator(int length) {
         this.passwordLength = length;
     }
 
-    // 4. METHOD (Generates and returns the password String)
+    // 4. METHOD
     public String generate() {
         Random random = new Random();
         String resultPassword = ""; // STRINGS
 
-        // Loop to pick random elements from array
         for (int i = 0; i < passwordLength; i++) {
             int randomIndex = random.nextInt(pool.length);
             resultPassword += pool[randomIndex];
@@ -35,13 +34,20 @@ class PasswordGenerator {
 
     // MAIN METHOD
     public static void main(String[] args) {
-        // Create Scanner object for keyboard input
         Scanner input = new Scanner(System.in);
+        int userLength = 0;
 
-        System.out.print("Enter password length: ");
-        int userLength = input.nextInt(); // Read integer from user
+        // VALIDATION LOOP (Ensures length is strictly greater than 0)
+        while (userLength <= 0) {
+            System.out.print("Enter password length (must be > 0): ");
+            userLength = input.nextInt();
 
-        // 5. OBJECT CREATION (Passing user input into constructor)
+            if (userLength <= 0) {
+                System.out.println("Invalid length! Password length must be at least 1.\n");
+            }
+        }
+
+        // 5. OBJECT CREATION
         PasswordGenerator myGenerator = new PasswordGenerator(userLength);
 
         // Call method on object
@@ -49,6 +55,6 @@ class PasswordGenerator {
 
         System.out.println("Generated Password: " + password);
 
-        input.close(); // Close scanner
+        input.close();
     }
 }
